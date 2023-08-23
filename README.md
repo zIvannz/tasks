@@ -18,3 +18,5 @@ add .env file
 php artisan migrate
 
 npm ru dev
+
+php artisan serve
