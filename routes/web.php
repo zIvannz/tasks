@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MainController;
+use App\Http\Controllers\TaskController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,13 +16,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('pages.home');
-})->name('task.home');;
-
-Route::get('/show/{Title}/{id}', function () {
-    return view('pages.show');
-})->name('task.show');;
+Route::get('/', [MainController::class, 'home'])->name('task.home');
 
 
 Route::get('/dashboard', function () {
@@ -34,17 +30,9 @@ Route::middleware('auth')->group(function () {
 
     //Tasks
 
-    Route::get('/tasks', function () {
-        return view('cabinet.tasks');
-    })->name('task.index');
+    Route::resource('tasks', TaskController::class);
 
-    Route::get('/task/edit/{id}', function () {
-        return view('cabinet.edit');
-    })->name('task.edit');
-
-    Route::get('/tasks/create', function () {
-        return view('cabinet.create');
-    })->name('task.create');
+    Route::get('/show/{title}/{id}', [MainController::class, 'show'])->name('task.show');
 });
 
 require __DIR__.'/auth.php';

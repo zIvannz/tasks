@@ -185,4 +185,8 @@ return [
         // 'Example' => App\Facades\Example::class,
     ])->toArray(),
 
+    'repositories' => [
+        'task' => App\Repositories\TaskRepository::class,
+    ],
+
 ];

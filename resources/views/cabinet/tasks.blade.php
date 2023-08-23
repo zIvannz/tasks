@@ -4,7 +4,7 @@
             {{ __('Tasks') }}
         </h2>
 
-         <x-nav-link :href="route('task.create')" :active="request()->routeIs('task.create')">
+         <x-nav-link :href="route('tasks.create')" :active="request()->routeIs('tasks.create')">
             <b>{{ __('Create task') }}</b>
         </x-nav-link>
     </x-slot>
@@ -17,17 +17,28 @@
                         <thead>
                             <tr>
                                 <th>Title</th>
-                                <th>Dedline</th>
+                                <th>Deadline</th>
+                                <th>Status</th>
                                 <th>Edit</th>
                                 <th>Delete</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>The Sliding Mr. Bones (Next Stop, Pottersville)</td>
-                                <td>Malcolm Lockyer</td>
-                                <td><a href="{{route('task.edit', 1)}}">Edit</a></td>
-                            </tr>
+                            @foreach ($tasks as $task)
+                                <tr>
+                                    <td>{{ $task->title }}</td>
+                                    <td>{{ $task->deadline }}</td>
+                                    <td>{{ $task->status }}</td>
+                                    <td><a href="{{route('tasks.edit', $task->id )}}">Edit</a></td>
+                                    <td>
+                                        <form action="{{route('tasks.destroy', $task->id)}}" method="post">
+                                            @csrf
+                                            @method('delete')
+                                            <button>Delete</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

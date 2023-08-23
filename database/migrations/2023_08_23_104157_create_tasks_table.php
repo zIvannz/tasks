@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->string('title');
             $table->text('description')->nullable();
-            $table->enum('status', ['Не розпочато', 'В процесі', 'Завершено'])->default('Не розпочато');
+            $table->enum('status', ['not_started', 'in_process', 'completed'])->default('not_started');
             $table->date('deadline')->nullable();
             $table->timestamps();
         });
